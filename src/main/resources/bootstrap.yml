@@ -1,0 +1,54 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: RealEstate-App
+  model:
+    package:  com.g2it.realestate.model
+  cross:
+    filter: http://localhost:4200
+  default:
+    password: welcome123
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+  kafka:
+    consumer:
+      bootstrap-servers: localhost:9092
+      group-id: group_id
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    producer:
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    jdbcUrl: jdbc:mysql://127.0.0.1:3306/g2it_real_estate_db
+    username: root
+    password: root123
+    hikari:
+      initialization-fail-timeout: 0
+      connection-timeout: 50000
+      idle-timeout: 300000
+      max-lifetime: 900000
+      maximum-pool-size: 10
+      minimum-idle: 10
+      pool-name: g2itRealEstateConnectionPool
+
+logging:
+  file:
+    name: log/realEstate.log
+  pattern:
+    console: "%d %-5level %logger : %msg%n"
+    file: "%d %-5level [%thread] %logger : %msg%n"
+  level:
+    #root: DEBUG
+    org.springframework.web: ERROR
+    com.g2it: DEBUG
+    org.hibernate: ERROR
+    com.zaxxer.hikari.HikariConfig: ERROR
+    com.zaxxer.hikari: ERROR
